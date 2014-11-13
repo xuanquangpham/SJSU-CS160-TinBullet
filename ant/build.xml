@@ -1,0 +1,137 @@
+<project name="StickyNotes" default="build-deploy-dbcreate" basedir="..">
+	<property file="ant/build.properties"/>
+	
+	<path id="classpath">
+ 		<fileset dir="${lib.dir}" includes="servlet-api.jar"/>
+ 		<fileset dir="${lib.dir}" includes="catalina-ant.jar"/>
+ 		<fileset dir="${lib.dir}" includes="tomcat-util.jar"/>
+	</path>
+	
+	<target name="clean">
+		<echo>Cleaning the ${build.dir} and ${dist.dir}</echo>
+		<delete dir="${build.dir}"/>
+		<delete dir="${dist.dir}"/>
+	</target>
+	
+	<target name="init" depends="clean">
+		<echo>Creating the build directory</echo>
+		<mkdir dir="${build.dir}/WEB-INF/classes"/>
+		<mkdir dir="${build.dir}/WEB-INF/lib"/>
+		<mkdir dir="${dist.dir}"/>
+	</target>
+	
+	<target name="compile" depends="init">
+		<echo>Compile the source files</echo>
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="copy" depends="compile">
+		<copy todir="${build.dir}/WEB-INF">
+			<fileset dir="${conf.dir}"/>
+		</copy>
+		<copy todir="${build.dir}">
+			<fileset dir="${web.content}"/>
+		</copy>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${lib.dir}"/>
+		</copy>
+	</target>
+	
+	<target name="build" depends="copy">
+		<echo>Building the war file</echo>
+		<war destfile="${dist.dir}/${project.name}.war" needxmlfile="false">
+			<fileset dir="${build.dir}">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+		</war>
+	</target>
+	
+	
+	<!-- Tomcat deployment -->
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask">
+		<classpath refid="classpath"/>
+	</taskdef>
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask">
+		<classpath refid="classpath"/>
+	</taskdef>
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask">
+		<classpath refid="classpath"/>
+	</taskdef>
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask">
+		<classpath refid="classpath"/>
+	</taskdef>
+
+	<target name="stop">
+		<echo>Stop application in tomcat</echo>
+		<stop url="${tomcat.manager.url}" username="${tomcat.manager.username}"
+			password="${tomcat.manager.password}" path="/${project.name}" />
+	</target>
+
+	<target name="start">
+		<echo>Start application in tomcat</echo>
+		<start url="${tomcat.manager.url}" username="${tomcat.manager.username}"
+			password="${tomcat.manager.password}" path="/${project.name}" />
+	</target>
+	
+	<target name="undeploy">
+		<echo>Undeploy from tomcat...</echo>
+		<undeploy 
+			failonerror="no"
+			url="${tomcat.manager.url}"
+			username="${tomcat.manager.username}"
+			password="${tomcat.manager.password}"
+			path="/${project.name}"
+		/>
+	</target>
+	
+	<target name="deploy">
+		<echo>Deploying from client...</echo>
+		<deploy 
+			url="${tomcat.manager.url}/"
+			username="${tomcat.manager.username}"
+			password="${tomcat.manager.password}"
+			path="/${project.name}"
+			war="file:../${dist.dir}/${project.name}.war"
+		/>
+	</target>
+	
+	
+	<!-- MySQL -->
+	<target name="dbcreate">
+		<echo>Populating data into db</echo>
+		<antcall target="dbdrop"/>
+		<antcall target="create_db_name"/>
+
+		<exec executable="${mysql}" input="${conf.dir}/${mysql.dump.name}">
+			<arg value="--user=${mysql.username}"/>
+			<arg value="--password=${mysql.password}"/>
+			<arg value="${mysql.db.name}"/>
+		</exec>
+	</target>
+ 
+	<target name="dbdrop">
+		<echo>Dropping database...</echo>
+		<exec executable="${mysqladmin}">
+			<arg value="--user=${mysql.username}"/>
+			<arg value="--password=${mysql.password}"/>
+			<arg value="--force"/>
+			<arg value="drop"/>
+			<arg value="${mysql.db.name}"/>
+		</exec>
+	</target>
+ 
+	<target name="create_db_name">
+		<echo>Creating database...</echo>
+		<exec executable="${mysqladmin}">
+			<arg value="--user=${mysql.username}"/>
+			<arg value="--password=${mysql.password}"/>
+			<arg value="--force"/>
+			<arg value="create"/>
+			<arg value="${mysql.db.name}"/>
+		</exec>
+	</target>
+	
+	<target name="build-deploy-dbcreate" depends="build,undeploy,deploy,dbcreate" />
+</project>
