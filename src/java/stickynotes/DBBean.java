@@ -72,11 +72,11 @@ public class DBBean implements java.io.Serializable {
 	}
 
 	/*
-	 * Execute a SQL statement to update, delete. No results return needed
+	 * Execute a SQL statement to insert, update, delete. No results return needed
 	 */
-	public void executeSQL(String str) {
+	public void update(String str) {
 		try {
-			stat.executeQuery(str);
+			stat.executeUpdate(str);
 		} catch(Exception e) {
 			e.printStackTrace(); 
 		}
