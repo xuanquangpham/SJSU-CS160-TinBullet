@@ -117,6 +117,7 @@ CREATE TABLE `user_board` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `board_id` int(11) DEFAULT NULL,
+  `permission` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `board_id_idx` (`board_id`),
   KEY `user_id` (`user_id`),
@@ -131,7 +132,7 @@ CREATE TABLE `user_board` (
 
 LOCK TABLES `user_board` WRITE;
 /*!40000 ALTER TABLE `user_board` DISABLE KEYS */;
-INSERT INTO `user_board` VALUES (1,1,1),(2,2,1),(3,3,1),(4,4,1),(5,1,2),(6,2,2),(7,3,2),(8,4,2);
+INSERT INTO `user_board` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,1,2,1),(6,2,2,1),(7,3,2,1),(8,4,2,1);
 /*!40000 ALTER TABLE `user_board` ENABLE KEYS */;
 UNLOCK TABLES;
 
