@@ -56,3 +56,15 @@ function validateInfoForm() {
    }
    return true;
 }
+
+function validateNewPostForm() {
+   
+   var nTitle = document.forms["newPost"]["noteTitle"].value;
+   var nBody = document.forms["newPost"]["noteBody"].value;
+   
+   if (nTitle == "" || nBody == "") {
+      alert("All signup fields must be filled out");
+      return false;
+   }
+   return true;
+}

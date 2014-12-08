@@ -83,3 +83,12 @@
 	width: 400px;
     border-bottom:5px solid #3399FF;
 }
+
+#divNewPost {
+    background-color: #99CCFF;
+	margin-left: auto;
+    margin-right: auto;
+    top:150px;
+	width: 400px;
+    border-bottom:5px solid #3399FF;
+}

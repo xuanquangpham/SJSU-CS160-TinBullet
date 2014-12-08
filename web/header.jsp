@@ -26,11 +26,13 @@ if (request.getParameter("project") != null) {
 	session.setAttribute("project_id",project_id);
 }
 
+// ADD NEW PROJECT INTO USER ACCOUNT
 if (request.getParameter("add_project") != null) {
 	query = "INSERT INTO user_board(user_id,board_id) VALUES("+id+","+request.getParameter("add_project")+")";
 	db.update(query);
 }
 
+// ADD NEW MEMBER INTO PROJECT
 if (request.getParameter("add_member") != null) {
 	query = "SELECT id FROM users WHERE username='"+request.getParameter("add_member")+"'";
 	db.queryString(query); db.isNext();
@@ -39,6 +41,7 @@ if (request.getParameter("add_member") != null) {
 	db.update(query);
 }
 
+// UPDATE USER INFO
 if (request.getParameter("firstname") != null) {
 	query = "UPDATE users SET firstname='"+request.getParameter("firstname")+"', lastname='"+request.getParameter("lastname")+"', email='"+request.getParameter("email")+"', password='"+request.getParameter("password1")+"' WHERE id ="+id;
 	db.update(query);

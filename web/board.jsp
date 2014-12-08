@@ -1,36 +1,54 @@
 <%@ include file="header.jsp" %> 
-<<<<<<< HEAD
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#divNewPost").hide();
+	
+    $('.new_post_show_hide').click(function(){
+    	$("#divNewPost").slideToggle();
+    });
+});
+</script>
+<div id="divNewPost">
+<form name="newPost" method="post" action="board.jsp" onSubmit="return validateNewPostForm()">
+<p align="center" class="text"><br>Submit a New Note: (<a href='#' class='new_post_show_hide'>Close</a>)<br><br>
+        <input name="noteTitle" type="text" id="noteTitle" size="50" placeholder="Note title"><br><br>
+		<textarea name="noteBody" id="noteBody" rows="7" cols="48" placeholder="Enter in your message here." ></textarea><br><br>
+        Tags: <input type="radio" name="tag" value="1" checked/>Alert<input type="radio" name="tag" value="2" />Question<input type="radio" name="tag" value="3" />Announcement<br><br>
+        <input type="submit" name="btn_new_post" id="btn_new_post" value="Submit">
+</p>
+</form>
+</div>
+
 <%
+// SUBMIT A NEW NOTE
+if (request.getParameter("noteTitle") != null) {
+	String title = request.getParameter("noteTitle");
+	String body = request.getParameter("noteBody");
+	String tag = request.getParameter("tag");
+	java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	String date = dateFormat.format(new java.util.Date()).toString();
+	int position = 1;
+	String type = request.getParameter("tag");
+	String seen = (String)session.getAttribute("username");
+	String author_id = (String)session.getAttribute("id");
+	String board_id = (String)session.getAttribute("project_id");
+
+	query = "INSERT INTO post (title, content, date, author_id, board_id, position, type, seen) VALUES('" + title + "', '" + body + "', '" + date + "', " + author_id + ", " + board_id + ", " + position + ", '" + type + "', '" + seen + "')";
+	db.update(query); 
+}
+
+// MOVE TO ARCHIVE
 String post_id = request.getParameter("post");
 if (post_id != null) {
 	query = "UPDATE post SET position=0 WHERE id="+post_id;
 	db.update(query); 
 }
+
+// display mode: active note or archive including
 boolean all = (request.getParameter("archive") == null? false : true);
 %>
 
-=======
-<div id="newPost" style="position: absolute; z-index: 3; top: 100px; left: 100px; visibility: hidden;"> 
-<form action="note.jsp" method="post"> 
-<table bgcolor="#FFFFCC" border="10px" style="width:100%; height:100%"> 
-	<tr>
-    	<td colspan="5">Submit New Note</td>
-        <td><button id="close" type="button" onClick="closeLayer()">X</button>
-    </tr>
-    <tr>
-    	<td><p>Title<input type="text" name="title" size="35" placeholder="Example Title" /></p> </td>
-        <td align="center" valign="bottom">Tags</td>
-    </tr>
-    <tr>
-    	<td valign="top"><textarea name="body" rows="5" cols="50" maxlength="500" placeholder="Enter in your message here." style="height:300px; width:500px"></textarea></td>
-        <td align="left" valign="top" ><p><input type="radio" name="Tag" value="1" checked/>Alert</p>
-        <p><input type="radio" name="Tag" value="2" />Question</p><p><input type="radio" name="Tag" value="3" />Announcement</p></td>
-     </tr>
-    <tr>
-    	<td><input type="submit" name="submit" value="Submit" />
-</table>
-</form> </div>
->>>>>>> origin/master
 <table width="100%" border="0" >
   <tr valign="top">
     <td>
@@ -121,29 +139,14 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     </tr></table>
     </td>
-<<<<<<< HEAD
-    <td width="150"><a href="">New Note</a>
-    <br><a href="board.jsp?archive=1">Show Archive</a>
-    <br><a href="board.jsp">Hide Archive</a>
-    </td>
-=======
 	<td width="150">
-		<input type="submit" name="new note" id="newnote" value="New Note" onClick="toggleLayer()" style="width:200px">
+		<input type="button" name="newnote" id="newnote" value="New Note" class="new_post_show_hide" style="width:200px;heigth:100px;">
 		<br/>
-		<input type="submit" name="view archive" id="viewarchive" value="View Archive" style="width:200px">
+		<input type="button" name="showarchive" id="showarchive" value="Show Archive" style="width:200px" onClick="location.href = 'board.jsp?archive=1';">
+        <br/>
+		<input type="button" name="hidearhive" id="hidearchive" value="Hide Archive" style="width:200px" onClick="location.href = 'board.jsp';">
 	</td>
->>>>>>> origin/master
   </tr>
 </table>
-<script>
-function toggleLayer() {
-	document.getElementById("newPost").setAttribute("style", "visibility:visible;");
-	//document.getElementById("blur").setAttribute("style", "visibility:visible;");
-}
-function closeLayer() {
-	document.getElementById("newPost").setAttribute("style", "display:none;");
-	//document.getElementById("blur").setAttribute("style", "visibility:hidden;");
-}
-</script>
 </body>
 </html>
