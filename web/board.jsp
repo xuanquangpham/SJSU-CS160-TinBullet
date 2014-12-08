@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %> 
+<<<<<<< HEAD
 <%
 String post_id = request.getParameter("post");
 if (post_id != null) {
@@ -8,6 +9,28 @@ if (post_id != null) {
 boolean all = (request.getParameter("archive") == null? false : true);
 %>
 
+=======
+<div id="newPost" style="position: absolute; z-index: 3; top: 100px; left: 100px; visibility: hidden;"> 
+<form action="note.jsp" method="post"> 
+<table bgcolor="#FFFFCC" border="10px" style="width:100%; height:100%"> 
+	<tr>
+    	<td colspan="5">Submit New Note</td>
+        <td><button id="close" type="button" onClick="closeLayer()">X</button>
+    </tr>
+    <tr>
+    	<td><p>Title<input type="text" name="title" size="35" placeholder="Example Title" /></p> </td>
+        <td align="center" valign="bottom">Tags</td>
+    </tr>
+    <tr>
+    	<td valign="top"><textarea name="body" rows="5" cols="50" maxlength="500" placeholder="Enter in your message here." style="height:300px; width:500px"></textarea></td>
+        <td align="left" valign="top" ><p><input type="radio" name="Tag" value="1" checked/>Alert</p>
+        <p><input type="radio" name="Tag" value="2" />Question</p><p><input type="radio" name="Tag" value="3" />Announcement</p></td>
+     </tr>
+    <tr>
+    	<td><input type="submit" name="submit" value="Submit" />
+</table>
+</form> </div>
+>>>>>>> origin/master
 <table width="100%" border="0" >
   <tr valign="top">
     <td>
@@ -98,11 +121,29 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     </tr></table>
     </td>
+<<<<<<< HEAD
     <td width="150"><a href="">New Note</a>
     <br><a href="board.jsp?archive=1">Show Archive</a>
     <br><a href="board.jsp">Hide Archive</a>
     </td>
+=======
+	<td width="150">
+		<input type="submit" name="new note" id="newnote" value="New Note" onClick="toggleLayer()" style="width:200px">
+		<br/>
+		<input type="submit" name="view archive" id="viewarchive" value="View Archive" style="width:200px">
+	</td>
+>>>>>>> origin/master
   </tr>
 </table>
+<script>
+function toggleLayer() {
+	document.getElementById("newPost").setAttribute("style", "visibility:visible;");
+	//document.getElementById("blur").setAttribute("style", "visibility:visible;");
+}
+function closeLayer() {
+	document.getElementById("newPost").setAttribute("style", "display:none;");
+	//document.getElementById("blur").setAttribute("style", "visibility:hidden;");
+}
+</script>
 </body>
 </html>
