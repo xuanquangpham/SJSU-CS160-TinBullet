@@ -60,10 +60,14 @@
     
     </tr></table>
     </td>
-    <td width="150"><a href="">New Note</a>
-    <br><a href="">View Archive</a>
+    
+	<td width="150">
+		<input type="submit" name="new note" id="newnote" value="New Note" style="width:200px">
+		<br/>
+		<input type="submit" name="view archive" id="viewarchive" value="View Archive" style="width:200px">
     </td>
-  </tr>
+
+	</tr>
 </table>
 </body>
 </html>
