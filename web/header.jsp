@@ -65,8 +65,8 @@ $(document).ready(function(){
 });
 </script>
 <form action="board.jsp" method="post">
-<table width="100%" border="0"><tr><td  bgcolor="#FFF573">
-<table class="text"  width="100%" border="0">
+<table class="text" width="100%" border="0"><tr><td  bgcolor="#FFF573">
+<table width="100%" border="0">
   <tr>
     <td>Projects 
       <select name="project" id="project">

@@ -87,7 +87,8 @@ CREATE TABLE `post` (
   `author_id` int(11) DEFAULT NULL,
   `board_id` int(11) DEFAULT NULL,
   `position` int(11) DEFAULT NULL,
-  `userPersonal` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `seen` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `author_id_idx` (`author_id`),
   KEY `board_id_idx` (`board_id`),
@@ -102,7 +103,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Welcome to StickyNotes','This is the welcome message','2014-10-10 23:59:59',1,1,1,0),(2,'Message 1','This is message 1','2014-10-10 23:59:59',1,1,1,0),(3,'Message 2','This is message 2','2014-10-10 23:59:59',2,1,2,0),(4,'Message 3','This is message 3','2014-10-10 23:59:59',3,1,3,0),(5,'Message 4','This is message 4','2014-10-10 23:59:59',1,2,1,0),(6,'Message 5','This is message 5','2014-10-10 23:59:59',2,2,2,0);
+INSERT INTO `post` VALUES (1,'Welcome to StickyNotes','This is the welcome message','2014-10-10 23:59:59',1,1,1,1,''),(2,'Message 1','This is message 1','2014-10-10 23:59:59',1,1,1,2,''),(3,'Message 2','This is message 2','2014-10-10 23:59:59',2,1,2,3,''),(4,'Message 3','This is message 3','2014-10-10 23:59:59',3,1,3,1,''),(5,'Message 4','This is message 4','2014-10-10 23:59:59',1,2,1,1,''),(6,'Message 5','This is message 5','2014-10-10 23:59:59',2,2,2,2,'');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
