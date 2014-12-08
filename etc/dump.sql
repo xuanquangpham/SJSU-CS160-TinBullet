@@ -28,7 +28,7 @@ CREATE TABLE `boards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `boards` (
 
 LOCK TABLES `boards` WRITE;
 /*!40000 ALTER TABLE `boards` DISABLE KEYS */;
-INSERT INTO `boards` VALUES (1,'CS160'),(2,'CS174');
+INSERT INTO `boards` VALUES (1,'CS160'),(2,'CS174'),(3,'CS175'),(4,'CS100W'),(5,'CS149');
 /*!40000 ALTER TABLE `boards` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,13 +117,13 @@ CREATE TABLE `user_board` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `board_id` int(11) DEFAULT NULL,
-  `permission` int(11) DEFAULT NULL,
+  `permission` int(11) DEFAULT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `board_id_idx` (`board_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `board_id` FOREIGN KEY (`board_id`) REFERENCES `boards` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +132,7 @@ CREATE TABLE `user_board` (
 
 LOCK TABLES `user_board` WRITE;
 /*!40000 ALTER TABLE `user_board` DISABLE KEYS */;
-INSERT INTO `user_board` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,1,2,1),(6,2,2,1),(7,3,2,1),(8,4,2,1);
+INSERT INTO `user_board` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,1,2,1),(6,2,2,1);
 /*!40000 ALTER TABLE `user_board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `users` (
   `email` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,6 +161,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (1,'quangpham','Quang','Pham','xuanquangpham@yahoo.com','welcome'),(2,'steven','Zheyu','Liu','stevenliu92@yahoo.com','welcome'),(3,'derek','Pang','Derek','derek@yahoo.com','welcome'),(4,'joseph','Matteucci','Joseph','joseph@yahoo.com','welcome');
+INSERT INTO `users` VALUES (5,'huypham','Huy','Pham','huypham@yahoo.com','welcome'),(6,'alex','Alex','Jobs','alex@yahoo.com','welcome');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

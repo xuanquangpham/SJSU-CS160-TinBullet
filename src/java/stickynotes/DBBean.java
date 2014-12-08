@@ -15,7 +15,7 @@ public class DBBean implements java.io.Serializable {
 	ResultSet rs = null;
 
 	public DBBean() {
-		connect();
+		connect(); //create the connection with db server
 	}
 
 	/*
@@ -41,8 +41,6 @@ public class DBBean implements java.io.Serializable {
                     prop.getProperty("DB_USERNAME"),
                     prop.getProperty("DB_PASSWORD"));
 			input.close();
-			//Class.forName("com.mysql.jdbc.Driver");
-			//con = DriverManager.getConnection("jdbc:mysql://localhost:3306/StickyNotes","root","root");
 			stat = con.createStatement();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -51,6 +49,7 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get the result at a specific row
+	 * @param row the postion in list of result sets
 	 */	
 	public void gotoRow(int row) {
 		try {
@@ -62,6 +61,7 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Execute a SQL statement and get the results
+	 * @param str the sql string
 	 */
 	public void queryString(String str) {
 		try {
@@ -73,6 +73,7 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Execute a SQL statement to insert, update, delete. No results return needed
+	 * @param str the sql string
 	 */
 	public void update(String str) {
 		try {
@@ -84,6 +85,7 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Check if there is a result
+	 * @return true if there is a record
 	 */
 	public boolean isNext() {
 		try {
@@ -109,6 +111,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get result set type String by column name and return a string
+	 * @param name column name of result set
+	 * @return value of the column
 	 */
 	public String getString(String name) {
 		if((rs == null) || ("".equals(name))) return "";
@@ -124,6 +128,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get result set type String by column position and return a string
+	 * @param i column position in result set
+	 * @return value of the column	 
 	 */
 	public String getString(int i) {
 		if((rs == null) || (i <= 0)) return "";
@@ -139,6 +145,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get result set type Int by column name and return a string
+	 * @param name column name of result set
+	 * @return value of the column	 
 	 */
 	public String getInt(String name) {
 		if((rs == null) || ("".equals(name))) return "";
@@ -154,6 +162,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get result set type Int by column position and return a string
+	 * @param i column position in result set
+	 * @return value of the column	 
 	 */
 	public String getInt(int i) {
 		if((rs == null) || (i <= 0)) return "";
@@ -169,6 +179,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Get result set type Date by column name and return a string
+	 * @param name column name of result set
+	 * @return date as string	 
 	 */
 	public String getDate(String name) {
 		if((rs == null) || ("".equals(name))) return "";
@@ -183,7 +195,9 @@ public class DBBean implements java.io.Serializable {
 	}
 
 	/*
-	 * Get result set type Boolean by column position and return a string
+	 * Get result set type Date by column position and return a string
+	 * @param i column position in result set
+	 * @return value of the column	 
 	 */
 	public String getDate(int i) {
 		if((rs == null) || (i <= 0)) return "";
@@ -199,6 +213,10 @@ public class DBBean implements java.io.Serializable {
 	
 	/*
 	 * Check if table has a specific data at a column
+	 * @param table the table name
+	 * @param col the column name
+	 * @param name condition to compare
+	 * @return true if return any records, otherwise false
 	 */
 	public boolean isExist(String table, String col, String name) {
 		boolean flag = false;
@@ -214,6 +232,8 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Check if a query returns any result or not
+	 * @param query an sql query
+	 * @return true if return any records, otherwise false	 
 	 */
 	public boolean isExist(String query) {
 		boolean flag = false;
@@ -229,6 +249,7 @@ public class DBBean implements java.io.Serializable {
 
 	/*
 	 * Return the column names of the result set
+	 * @return a list of column name
 	 */
 	public String[] getFieldsName() throws SQLException {
 		ResultSetMetaData meta = rs.getMetaData();

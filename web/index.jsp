@@ -4,48 +4,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sticky Notes homepage</title>
-<style type="text/css">
-.text {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size:12px;
-}
-</style>
-<script>
-function validateLoginForm() {
-   var x = document.forms["login"]["username"].value;
-   var y = document.forms["login"]["password"].value;
-   if (x == "" || y == "") {
-      alert("Username and password must be filled out.");
-      return false;
-   }
-   return true;
-}
-
-function validateSignupForm() {
-   var fname = document.forms["signup"]["firstname"].value;
-   var lname = document.forms["signup"]["lastname"].value;
-   var usr = document.forms["signup"]["username"].value;
-   var email = document.forms["signup"]["email"].value;
-   var pwd1 = document.forms["signup"]["password1"].value;
-   var pwd2 = document.forms["signup"]["password2"].value;
-   var term = document.forms["signup"]["term"];
-   
-   if (fname == "" || lname == "" || usr == "" || email == "" || pwd1 == "" || pwd2 == "" || term.checked == false) {
-      alert("All signup fields must be filled out");
-      return false;
-   }
-   if (pwd1 != pwd2) {
-	   alert("Password must be the same in both fields.");
-	   return false;
-   }
-   return true;
-}
-</script>
-</script>
+<script src="scripts/validate.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/board.css">
 </head>
-
 <%
-if (request.getParameter("username") != null) {
+if (request.getParameter("logout") != null) {
+	session.removeAttribute("username");
+	session.removeAttribute("id");
+	session.removeAttribute("project_id");
+} else if (request.getParameter("username") != null) {
 	String user = request.getParameter("username");
 	String query = "SELECT username FROM users WHERE username='" + user + "' AND password='" + request.getParameter("password") + "'";
 	if (db.isExist(query)) {
