@@ -210,7 +210,40 @@ public class DBBean implements java.io.Serializable {
 		catch(Exception e) { e.printStackTrace(); }
 		return s;
 	}
-	
+
+	/*
+	 * Get result set type Time by column name and return a string
+	 * @param name column name of result set
+	 * @return time as string	 
+	 */
+	public String getTime(String name) {
+		if((rs == null) || ("".equals(name))) return "";
+
+		String s = "";
+		try {
+			s = rs.getTime(name).toString();
+			if(s == null) s = "";
+		}
+		catch(Exception e) { e.printStackTrace(); }
+		return s;
+	}
+
+	/*
+	 * Get result set type Time by column position and return a string
+	 * @param i column position in result set
+	 * @return value of the column	 
+	 */
+	public String getTime(int i) {
+		if((rs == null) || (i <= 0)) return "";
+
+		String s = "";
+		try {
+			s = rs.getTime(i).toString();
+			if(s == null) s = "";
+		}
+		catch(Exception e) { e.printStackTrace(); }
+		return s;
+	}	
 	/*
 	 * Check if table has a specific data at a column
 	 * @param table the table name

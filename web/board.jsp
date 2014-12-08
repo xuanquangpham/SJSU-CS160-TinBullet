@@ -33,7 +33,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
 		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
-      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+db.getDate("date")+"</td></tr></table></td></tr>");
+      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
     %>
   
@@ -59,7 +59,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
 		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
-      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+db.getDate("date")+"</td></tr></table></td></tr>");
+      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
     %>
   
@@ -86,7 +86,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
 		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
-      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+db.getDate("date")+"</td></tr></table></td></tr>");
+      	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
     %>
   
