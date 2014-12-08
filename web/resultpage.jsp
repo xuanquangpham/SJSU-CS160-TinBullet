@@ -1,14 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" errorPage="error.jsp" %>
-<jsp:useBean id="db" scope="session" class="stickynotes.DBBean" />
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="header.jsp" %> 
+
+
 <title>Sticky Notes homepage</title>
 <style type="text/css">
-.text {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size:12px;
-}
 td.poster {
 	width: 15%;
 }
@@ -20,13 +14,11 @@ td.postbody {
 
 </script>
 </script>
-</head>
 
 <%
 
 %>
 
-<body>
 <center><h1>POST NAME</h1></center>
 <table style="border-collapse: collapse;" width="100%" border="0">
 
