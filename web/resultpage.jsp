@@ -46,13 +46,13 @@ td.postbody {
 		<input type="submit" name="change priority" id="changepriority" value="Change Priorities" style="width:200px"></td>
   </tr>
   <%
-	query = "SELECT d.content, d.author_id, d.date FROM discussion d WHERE d.post_id = "+postid;
+	query = "SELECT u.username, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid;
 	db.queryString(query);
 	int priority = 2;
 	while(db.isNext()){
 		content = db.getString("content");
 		date = db.getString("date");
-		author = "notfinished";
+		author = db.getString("username");
 		out.print("<tr><td height='90%' width='6%'>&nbsp;</td><td class='poster' style='border:1px solid' height='90%' width='6%' colspan='2' bgcolor='#FFF573'><p><h1>Priority "
 			+ priority +"</h1></p><p class='text'>"+author+"</p><p class='text'>"+date
 			+"</p><br/><td class='postbody' style='border:1px solid' height='70' colspan='2' bgcolor='#FFF573'><br/><p>"+content
