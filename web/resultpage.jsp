@@ -36,7 +36,7 @@ td.postbody {
 	<p class="text"><%out.print(date);%></p>
 	<br/>
 	
-	<td class="postbody" style="border:1px solid" height="70" colspan="2" bgcolor="#FFF573"><p><%out.print(content);out.print(postid);%></p>
+	<td class="postbody" style="border:1px solid" height="70" colspan="2" bgcolor="#FFF573"><br/><p><%out.print(content);%></p>
 
     <p>&nbsp;</p></td>
     <td><input type="submit" name="post response" id="postresponse" value="Post Response" style="width:200px">
