@@ -90,7 +90,9 @@ function validateNewPostForm() {
 
 function validateReply() {
    var text = replaceChar(document.forms["newReply"]["replyBody"].value);
-   document.forms["newReply"]["replyBody"].value = text;
+   var elem = document.getElementById("replyBody");
+   elem.value = replaceChar(elem.value);
+   text = elem.value;
    
    if (text == "") {
       alert("All fields must be filled out");
