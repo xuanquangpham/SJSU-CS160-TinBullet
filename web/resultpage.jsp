@@ -41,6 +41,7 @@ if (request.getParameter("replyBody") != null) {
 	String author_id = (String)session.getAttribute("id");
 
 	query = "INSERT INTO discussion (content, author_id, post_id, date, priority) VALUES('" + body + "', " + author_id + ", " + postid + ", '"+ date +"'," + tag + ")";
+	out.print(query);
 	db.update(query); 
 }
 
@@ -94,7 +95,7 @@ if (seen.indexOf(username) == -1) {
   </tr>
   <%
   	//RED priority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 1 +" ORDER BY p.date DESC";
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority=1 ORDER BY d.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");
@@ -110,7 +111,7 @@ if (seen.indexOf(username) == -1) {
 	}
 	
 	//BLUE prority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 2 +" ORDER BY p.date DESC";
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority=2 ORDER BY d.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");
@@ -126,7 +127,7 @@ if (seen.indexOf(username) == -1) {
 	}
 	
 	//GREEN prority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 3 +" ORDER BY p.date DESC";
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority=3 ORDER BY d.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");

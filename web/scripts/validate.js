@@ -71,9 +71,9 @@ function validateNewPostForm() {
 
 function validateReply() {
    
-   var t = document.forms["newReply"]["replyBody"].value;
+   var text = document.forms["newReply"]["replyBody"].value;
    
-   if (t == "") {
+   if (text == "") {
       alert("All fields must be filled out");
       return false;
    }
