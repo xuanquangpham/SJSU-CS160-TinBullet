@@ -157,7 +157,7 @@ $(document).ready(function(){
 </div>
 
 <div id="divInfo">
-<form method="post" action="board.jsp" onSubmit="return validateInfoForm()">
+<form name="infoForm" method="post" action="board.jsp" onSubmit="return validateInfoForm()">
 <p align="center" class="text"><br>Modify account information: (<a href='#' class='info_show_hide'>Close</a>)<br><br>
 		<%
 		query = "SELECT firstname, lastname, email, password FROM users WHERE username='"+username+"'";
