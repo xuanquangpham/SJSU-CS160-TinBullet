@@ -41,7 +41,6 @@ if (request.getParameter("replyBody") != null) {
 	String author_id = (String)session.getAttribute("id");
 
 	query = "INSERT INTO discussion (content, author_id, post_id, date, priority) VALUES('" + body + "', " + author_id + ", " + postid + ", '"+ date +"'," + tag + ")";
-	out.print(query);
 	db.update(query); 
 }
 

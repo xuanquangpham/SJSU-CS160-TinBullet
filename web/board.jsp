@@ -1,5 +1,5 @@
 <%@ include file="header.jsp" %> 
-<h2><p align="center">Main Board</p></h2>
+<h1><p align="center">Main Board</p></h1>
 <script type="text/javascript">
 $(document).ready(function(){
     $("#divNewPost").hide();

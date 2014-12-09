@@ -1,7 +1,13 @@
 // JavaScript Document
+function replaceChar(myString) {
+	return mystring.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+}
+
 function validateLoginForm() {
-   var x = document.forms["login"]["username"].value;
-   var y = document.forms["login"]["password"].value;
+   var x = replaceChar(document.forms["login"]["username"].value);
+   document.forms["login"]["username"].value = x;
+   var y = replaceChar(document.forms["login"]["password"].value);
+   document.forms["login"]["password"].value = y;
    if (x == "" || y == "") {
       alert("Username and password must be filled out.");
       return false;
@@ -11,12 +17,18 @@ function validateLoginForm() {
 
 function validateSignupForm() {
    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   var fname = document.forms["signup"]["firstname"].value;
-   var lname = document.forms["signup"]["lastname"].value;
-   var usr = document.forms["signup"]["username"].value;
-   var email = document.forms["signup"]["email"].value;
-   var pwd1 = document.forms["signup"]["password1"].value;
-   var pwd2 = document.forms["signup"]["password2"].value;
+   var fname = replaceChar(document.forms["signup"]["firstname"].value);
+   document.forms["signup"]["firstname"].value = fname;
+   var lname = replaceChar(document.forms["signup"]["lastname"].value);
+   document.forms["signup"]["lastname"].value = lname;
+   var usr = replaceChar(document.forms["signup"]["username"].value);
+   document.forms["signup"]["username"].value = usr;
+   var email = replaceChar(document.forms["signup"]["email"].value);
+   document.forms["signup"]["email"].value = email;
+   var pwd1 = replaceChar(document.forms["signup"]["password1"].value);
+   document.forms["signup"]["password1"].value = pwd1;
+   var pwd2 = replaceChar(document.forms["signup"]["password2"].value);
+   document.forms["signup"]["password2"].value = pwd2;
    var term = document.forms["signup"]["term"];
    
    if (fname == "" || lname == "" || usr == "" || email == "" || pwd1 == "" || pwd2 == "" || term.checked == false) {
@@ -36,11 +48,16 @@ function validateSignupForm() {
 
 function validateInfoForm() {
    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   var fname = document.forms["info"]["firstname"].value;
-   var lname = document.forms["info"]["lastname"].value;
-   var email = document.forms["info"]["email"].value;
-   var pwd1 = document.forms["info"]["password1"].value;
-   var pwd2 = document.forms["info"]["password2"].value;
+   var fname = replaceChar(document.forms["signup"]["firstname"].value);
+   document.forms["signup"]["firstname"].value = fname;
+   var lname = replaceChar(document.forms["signup"]["lastname"].value);
+   document.forms["signup"]["lastname"].value = lname;
+   var email = replaceChar(document.forms["signup"]["email"].value);
+   document.forms["signup"]["email"].value = email;
+   var pwd1 = replaceChar(document.forms["signup"]["password1"].value);
+   document.forms["signup"]["password1"].value = pwd1;
+   var pwd2 = replaceChar(document.forms["signup"]["password2"].value);
+   document.forms["signup"]["password2"].value = pwd2;
    
    if (fname == "" || lname == "" || email == "" || pwd1 == "" || pwd2 == "") {
       alert("All signup fields must be filled out");
@@ -59,8 +76,10 @@ function validateInfoForm() {
 
 function validateNewPostForm() {
    
-   var nTitle = document.forms["newPost"]["noteTitle"].value;
-   var nBody = document.forms["newPost"]["noteBody"].value;
+   var nTitle = replaceChar(document.forms["newPost"]["noteTitle"].value);
+   document.forms["newPost"]["noteTitle"].value = nTitle;
+   var nBody = replaceChar(document.forms["newPost"]["noteBody"].value);
+   document.forms["newPost"]["noteBody"].value = nBody;
    
    if (nTitle == "" || nBody == "") {
       alert("All fields must be filled out");
@@ -70,8 +89,8 @@ function validateNewPostForm() {
 }
 
 function validateReply() {
-   
-   var text = document.forms["newReply"]["replyBody"].value;
+   var text = replaceChar(document.forms["newReply"]["replyBody"].value);
+   document.forms["newReply"]["replyBody"].value = text;
    
    if (text == "") {
       alert("All fields must be filled out");
