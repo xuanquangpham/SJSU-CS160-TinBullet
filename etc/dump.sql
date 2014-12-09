@@ -54,6 +54,7 @@ CREATE TABLE `discussion` (
   `author_id` int(11) DEFAULT NULL,
   `post_id` int(11) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `post_id_idx` (`post_id`),
   KEY `author_id_idx` (`author_id`),
@@ -68,7 +69,7 @@ CREATE TABLE `discussion` (
 
 LOCK TABLES `discussion` WRITE;
 /*!40000 ALTER TABLE `discussion` DISABLE KEYS */;
-INSERT INTO `discussion` VALUES (1,'Reply for welcome message',2,1,'2014-10-10 23:59:59'),(2,'Reply for message 1',2,1,'2014-10-10 23:59:59'),(3,'Reply for message 1',3,1,'2014-10-10 23:59:59'),(4,'Reply for message 2',3,2,'2014-10-10 23:59:59'),(5,'Reply for message 2',4,2,'2014-10-10 23:59:59'),(6,'Reply for message 3',2,3,'2014-10-10 23:59:59'),(7,'Reply for message 4',3,4,'2014-10-10 23:59:59'),(8,'Reply for message 4',3,4,'2014-10-10 23:59:59'),(9,'Reply for message 5',4,5,'2014-10-10 23:59:59');
+INSERT INTO `discussion` VALUES (1,'Reply for welcome message',2,1,'2014-10-10 23:59:59',1),(2,'Reply for message 1',2,1,'2014-10-10 23:59:59',2),(3,'Reply for message 1',3,1,'2014-10-10 23:59:59',3),(4,'Reply for message 2',3,2,'2014-10-10 23:59:59',1),(5,'Reply for message 2',4,2,'2014-10-10 23:59:59',2),(6,'Reply for message 3',2,3,'2014-10-10 23:59:59',2),(7,'Reply for message 4',3,4,'2014-10-10 23:59:59',3),(8,'Reply for message 4',3,4,'2014-10-10 23:59:59',1),(9,'Reply for message 5',4,5,'2014-10-10 23:59:59',1);
 /*!40000 ALTER TABLE `discussion` ENABLE KEYS */;
 UNLOCK TABLES;
 

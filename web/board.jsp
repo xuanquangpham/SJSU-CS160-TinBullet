@@ -25,7 +25,6 @@ $(document).ready(function(){
 if (request.getParameter("noteTitle") != null) {
 	String title = request.getParameter("noteTitle");
 	String body = request.getParameter("noteBody");
-	String tag = request.getParameter("tag");
 	java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	String date = dateFormat.format(new java.util.Date()).toString();
 	int position = 1;
@@ -66,13 +65,13 @@ boolean all = (request.getParameter("archive") == null? false : true);
 		if (all && db.getString("position").equals("0"))
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
 		else 
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' title='Move to Archive'  href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			
-      	out.print("<tr class='title'><td align='center' colspan='2'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
+      	out.print("<tr><td align='center' colspan='2'  class='title'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
 		String content = db.getString("content");
       	if (content.length() < 500)
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
-		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
+		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+"... <a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
       	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
@@ -92,13 +91,13 @@ boolean all = (request.getParameter("archive") == null? false : true);
 		if (all && db.getString("position").equals("0"))
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
 		else 
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' title='Move to Archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			
-      	out.print("<tr class='title'><td align='center' colspan='2'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
+      	out.print("<tr ><td align='center' colspan='2'  class='title'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
 		String content = db.getString("content");
       	if (content.length() < 500)
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
-		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
+		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+"... <a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
       	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
@@ -119,13 +118,13 @@ boolean all = (request.getParameter("archive") == null? false : true);
 		if (all && db.getString("position").equals("0"))
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
 		else 
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive'  title='Move to Archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			
-      	out.print("<tr class='title'><td align='center' colspan='2'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
+      	out.print("<tr><td align='center' colspan='2'  class='title'><a href='resultpage.jsp?postid="+db.getString("id")+"'>"+db.getString("title")+"</a></td></tr>");
 		String content = db.getString("content");
       	if (content.length() < 500)
 			out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content+"</td></tr>");
-		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+" <i><a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></i></td></tr>");
+		else out.print("<tr valign='top' class='content'><td height='100' colspan='2'>"+content.substring(0,500)+"... <a href='resultpage.jsp?postid="+db.getString("id")+"'>more</a></td></tr>");
       	out.print("<tr class='seen'><td align='right' colspan='2'>Seen by "+db.getString("seen")+"</td></tr>");
       	out.print("<tr class='date'><td align='center' colspan='2'>posted "+ db.getTime("date") + " on "+db.getDate("date")+"</td></tr></table></td></tr>");
 	}
@@ -141,10 +140,10 @@ boolean all = (request.getParameter("archive") == null? false : true);
     </td>
 	<td width="150">
 		<input type="button" name="newnote" id="newnote" value="New Note" class="new_post_show_hide" style="width:200px;heigth:100px;">
-		<br/>
-		<input type="button" name="showarchive" id="showarchive" value="Show Archive" style="width:200px" onClick="location.href = 'board.jsp?archive=1';">
-        <br/>
-		<input type="button" name="hidearhive" id="hidearchive" value="Hide Archive" style="width:200px" onClick="location.href = 'board.jsp';">
+		<br/><br>
+		<input type="button" name="showarchive" id="showarchive" value="Show Archive" onClick="location.href = 'board.jsp?archive=1';" class="btnSize">
+        <br/><br>
+		<input type="button" name="hidearhive" id="hidearchive" value="Hide Archive"  class="btnSize" onClick="location.href = 'board.jsp';">
 	</td>
   </tr>
 </table>

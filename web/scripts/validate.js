@@ -63,7 +63,18 @@ function validateNewPostForm() {
    var nBody = document.forms["newPost"]["noteBody"].value;
    
    if (nTitle == "" || nBody == "") {
-      alert("All signup fields must be filled out");
+      alert("All fields must be filled out");
+      return false;
+   }
+   return true;
+}
+
+function validateReply() {
+   
+   var nTitle = document.forms["newReply"]["replyBody"].value;
+   
+   if (nTitle == "") {
+      alert("All fields must be filled out");
       return false;
    }
    return true;

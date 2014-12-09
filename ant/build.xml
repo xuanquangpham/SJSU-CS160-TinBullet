@@ -135,5 +135,6 @@
 	</target>
 	
 	<target name="build-deploy-dbcreate" depends="build,undeploy,deploy,dbcreate" />
+	<target name="all" depends="build-deploy-dbcreate" />
     <target name="build-deploy" depends="build,undeploy,deploy" />
 </project>

@@ -71,8 +71,8 @@ $(document).ready(function(){
 <table class="text" width="100%" border="0"><tr><td  bgcolor="#FFF573">
 <table width="100%" border="0">
   <tr>
-    <td>Projects 
-      <select name="project" id="project">
+    <td class = "panel">Projects 
+      <select name="project" id="project" class="panel">
         <%
 		query = "SELECT b.id, b.name FROM users u, boards b, user_board ub " +
 					"WHERE u.id = ub.user_id AND b.id = ub.board_id AND u.username = '" + username + "'";
@@ -92,10 +92,10 @@ $(document).ready(function(){
 		}
 		%>
         <option value="0" class="project_show_hide">&lt;Add new project&gt;</option>
-      </select>&nbsp;<input type="submit" name="btn_project_refresh" id="btn_project_refresh" value="Go">
+      </select>&nbsp;<input type="submit" name="btn_project_refresh" id="btn_project_refresh" value="Go" class="panel">
       &nbsp;&nbsp;&nbsp;&nbsp;Members  
       <label for="member"></label>
-    <select name="member" id="member">
+    <select name="member" id="member" class="panel">
     	<%
 		query = "SELECT u.username, u.firstname, u.lastname FROM users u, boards b, user_board ub " +
 					"WHERE u.id = ub.user_id AND b.id = ub.board_id AND u.username <> '" + username + "' AND b.id=" + project_id;
@@ -106,7 +106,7 @@ $(document).ready(function(){
 		%>
       <option value="0" class="member_show_hide">&lt;Add new member&gt;</option>
     </select></td>
-    <td width="200" align="right"><% out.print("<a href='#' class='info_show_hide'>" + username + "</a> / <a href='index.jsp?logout=1'>logout</a>"); %>&nbsp;</td> 
+    <td width="200" align="right" class="panel"><% out.print("<a href='#' class='info_show_hide'>" + username + "</a> / <a href='index.jsp?logout=1'>logout</a>"); %>&nbsp;</td> 
   </tr>
 </table></td></tr></table></form>
 
@@ -118,13 +118,18 @@ $(document).ready(function(){
 		query = "SELECT id, name FROM boards WHERE id NOT IN (SELECT b.id FROM users u, boards b, user_board ub " +
 					"WHERE u.id = ub.user_id AND b.id = ub.board_id AND u.username = '" + username + "')";
 		db.queryString(query);
+		i = 0;
 		while (db.isNext()) {
+			i++;
 			String bid = db.getInt("id");
 			out.println("<option value='"+ bid +"'>" + db.getString("name") + "</option>");
 		}
+		if (i == 0) {
+			out.println("<option value='0'>No project's available</option>");
+		}
 		%>
       </select><br><br>
-        <input type="submit" name="btn_project" id="btn_project" value="Add">
+        <input type="submit" name="btn_project" id="btn_project" value="Add" <% if (i==0) out.print("disabled"); %>>
 </p>
 </form>
 </div>
@@ -136,12 +141,17 @@ $(document).ready(function(){
         <%
 		query = "SELECT id, username, firstname, lastname FROM users WHERE id NOT IN (SELECT u.id FROM users u, boards b, user_board ub WHERE u.id = ub.user_id AND b.id = ub.board_id AND u.username <> '" + username + "' AND b.id=" + project_id + ") AND username <> '"+username+ "'";
 		db.queryString(query);
+		i = 0;
 		while (db.isNext()) {
+			i++;
 			out.println("<option value='"+ db.getString("username") +"'>" + db.getString("firstname") + " " + db.getString("lastname") +"</option>");
+		}
+		if (i == 0) {
+			out.println("<option value='0'>No member's available</option>");
 		}
 		%>
       </select><br><br>
-        <input type="submit" name="btn_member" id="btn_member" value="Add">
+        <input type="submit" name="btn_member" id="btn_member" value="Add" <% if (i==0) out.print("disabled");%>>
 </p>
 </form>
 </div>

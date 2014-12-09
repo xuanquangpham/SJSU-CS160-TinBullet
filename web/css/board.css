@@ -3,15 +3,54 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size:12px;
 }
+.radioRed {
+	background-color: #F3625E;
+    border-color: #F3625E;
+	width: 10px;
+	height: 10px;
+}
+.radioBlue {
+	background-color: #3399FF;
+    border-color: #3399FF;
+	width: 10px;
+	height: 10px;	
+}
+.radioGreen {
+	background-color: #AEFF8E;
+    border-color: #AEFF8E;	
+	width: 10px;
+	height: 10px;
+}
+td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+td.poster {
+	width: 15%;
+}
+td.postbody {
+	width: 50%;
+}
 .archive {
 	font-family: Arial, Helvetica, sans-serif;
   	background-color: transparent;
   	text-decoration: none;
 }
 
-.title {
+.title, .panel {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size:15px;
+}
+
+.btnSize, .new_post_show_hide, .reply_show_hide {
+	font-size:13px;
+	width:200px;
+	height:30px; 
+}
+
+textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
 }
 
 .title a:link {
@@ -85,6 +124,15 @@
 }
 
 #divNewPost {
+    background-color: #99CCFF;
+	margin-left: auto;
+    margin-right: auto;
+    top:150px;
+	width: 400px;
+    border-bottom:5px solid #3399FF;
+}
+
+#divReply {
     background-color: #99CCFF;
 	margin-left: auto;
     margin-right: auto;
