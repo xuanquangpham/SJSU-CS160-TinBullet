@@ -36,11 +36,11 @@ function validateSignupForm() {
 
 function validateInfoForm() {
    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   var fname = document.forms["info"]["firstname"].value;
-   var lname = document.forms["info"]["lastname"].value;
-   var email = document.forms["info"]["email"].value;
-   var pwd1 = document.forms["info"]["password1"].value;
-   var pwd2 = document.forms["info"]["password2"].value;
+   var fname = document.forms["infoForm"]["firstname"].value;
+   var lname = document.forms["infoForm"]["lastname"].value;
+   var email = document.forms["infoForm"]["email"].value;
+   var pwd1 = document.forms["infoForm"]["password1"].value;
+   var pwd2 = document.forms["infoForm"]["password2"].value;
    
    if (fname == "" || lname == "" || email == "" || pwd1 == "" || pwd2 == "") {
       alert("All signup fields must be filled out");
