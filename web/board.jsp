@@ -139,7 +139,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
     </tr></table>
     </td>
 	<td width="150">
-		<input type="button" name="newnote" id="newnote" value="New Note" class="new_post_show_hide" style="width:200px;heigth:100px;">
+		<input type="button" name="newnote" id="newnote" value="New Note" class="new_post_show_hide"`>
 		<br/><br>
 		<input type="button" name="showarchive" id="showarchive" value="Show Archive" onClick="location.href = 'board.jsp?archive=1';" class="btnSize">
         <br/><br>
