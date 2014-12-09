@@ -71,9 +71,9 @@ function validateNewPostForm() {
 
 function validateReply() {
    
-   var nTitle = document.forms["newReply"]["replyBody"].value;
+   var t = document.forms["newReply"]["replyBody"].value;
    
-   if (nTitle == "") {
+   if (t == "") {
       alert("All fields must be filled out");
       return false;
    }

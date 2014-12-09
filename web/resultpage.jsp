@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 </script>
 <div id="divReply">
-<form name="newPost" method="post" action="resultpage.jsp" onSubmit="return validateReply()">
+<form name="newReply" method="post" action="resultpage.jsp" onSubmit="return validateReply()">
 <p align="center" class="text"><br>Submit a Reply to the Note: (<a href='#' class='reply_show_hide'>Close</a>)<br><br>
 		<textarea name="replyBody" id="replyBody" rows="7" cols="48" placeholder="Enter in your message here." ></textarea><br><br>
         Priorities: <input type="radio" name="tag" value="1" checked/>Red<input type="radio" name="tag" value="2" />Blue<input type="radio" name="tag" value="3" />Green<br><br>
@@ -70,7 +70,7 @@ if (seen.indexOf(username) == -1) {
 
 %>
 
-<center><h1><%=title%></h1></center>
+<center><h1>Note Details</h1></center>
 <table style="border-collapse: collapse;" width="100%" border="0" cellpadding="10">
 
   <tr>
@@ -82,19 +82,19 @@ if (seen.indexOf(username) == -1) {
 	<p class="text"><%out.print("Posted "+ time+ " on " + date);%></p>
 	<br/>
 	
-	<td class="postbody" style="border:1px solid" height="70" colspan="2" bgcolor="#FEFCBA"><br/><p><%out.print(content);%></p>
+	<td class="postbody" style="border:1px solid" height="70" colspan="2" bgcolor="#FEFCBA"><h3><p align="center"><%=title%></p></h3><p><%=content%></p>
 
     <p>&nbsp;</p></td><td witdh="10%">&nbsp;</td>
     <td width='150'><input type='button' name='mainboard' id='mainboard' value='Main Board' class='btnSize' onClick='location.href ="board.jsp";' >
     <%
-	if (pos.equals("0")) {
+	if (!pos.equals("0")) {
 		out.print("<br><br><input type='button' name='reply' id='reply' value='Reply' class='reply_show_hide'></td>");
 	} else out.print("</td>");
 	%>
   </tr>
   <%
   	//RED priority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 1;
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 1 +" ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");
@@ -110,7 +110,7 @@ if (seen.indexOf(username) == -1) {
 	}
 	
 	//BLUE prority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 2;
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 2 +" ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");
@@ -126,7 +126,7 @@ if (seen.indexOf(username) == -1) {
 	}
 	
 	//GREEN prority
-	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 3;
+	query = "SELECT u.firstname, u.lastname, d.id, d.content, d.author_id, d.date FROM discussion d INNER JOIN users u ON u.id = d.author_id AND d.post_id = "+postid + " AND d.priority="+ 3 +" ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()){
 		content = db.getString("content");

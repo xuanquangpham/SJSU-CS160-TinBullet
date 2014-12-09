@@ -1,5 +1,5 @@
 <%@ include file="header.jsp" %> 
-
+<h2><p align="center">Main Board</p></h2>
 <script type="text/javascript">
 $(document).ready(function(){
     $("#divNewPost").hide();
@@ -57,9 +57,9 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     <%
 	if (all)
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=1";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=1 ORDER BY p.date DESC";
 	else 
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=1 AND position > 0";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=1 AND position > 0 ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
@@ -83,9 +83,9 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     <%
 	if (all)
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=2";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=2 ORDER BY p.date DESC";
 	else 
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=2 AND position > 0";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=2 AND position > 0 ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
@@ -110,9 +110,9 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     <%
 	if (all)
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=3";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=3 ORDER BY p.date DESC";
 	else 
-		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=3 AND position > 0";
+		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=3 AND position > 0  ORDER BY p.date DESC";
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
