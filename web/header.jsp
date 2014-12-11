@@ -46,7 +46,7 @@ if (request.getParameter("add_new_project") != null) {
 			query = "SELECT id FROM boards WHERE name='"+newproj+"'";
 			db.queryString(query); db.isNext();
 			String board_id = (String) db.getInt("id");
-			query = "INSERT INTO user_board(user_id,board_id) VALUES('"+id+"','"+board_id+"')";
+			query = "INSERT INTO user_board(user_id,board_id,permission) VALUES('"+id+"','"+board_id+"','10')";
 			db.update(query);
 			session.setAttribute("project_id",board_id);
 			response.sendRedirect("board.jsp");
