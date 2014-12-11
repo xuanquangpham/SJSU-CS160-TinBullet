@@ -44,6 +44,14 @@ if (post_id != null) {
 	db.update(query); 
 }
 
+//Delete Post From Database
+String delete_post = request.getParameter("post_delete");
+if (delete_post != null) {
+	query = "DELETE FROM post WHERE id="+delete_post;
+	db.update(query);
+	response.sendRedirect("board.jsp?archive=1");
+}
+
 // display mode: active note or archive including
 boolean all = (request.getParameter("archive") == null? false : true);
 %>
@@ -63,7 +71,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%' style='color:red;'>" + (db.getString("author_id").equals(id)? "<div class='option_delete'><span class='replace'>saved!</span><span class='replaced'><a href='board.jsp?post_delete="+db.getString("id")+"' title='Permenantly Delete This Post' class='delete_post'>DELETE</a></span></div>" : "saved!") +"</td></tr>");
 		else 
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_red.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' title='Move to Archive'  href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			
@@ -89,7 +97,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%' style='color:red;'>" + (db.getString("author_id").equals(id)? "<div class='option_delete'><span class='replace'>saved!</span><span class='replaced'><a href='board.jsp?post_delete="+db.getString("id")+"' title='Permenantly Delete This Post' class='delete_post'>DELETE</a></span></div>" : "saved!") +"</td></tr>");
 		else 
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_blue.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive' title='Move to Archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			
@@ -116,7 +124,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
 	db.queryString(query);
 	while(db.isNext()) {
 		if (all && db.getString("position").equals("0"))
-			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%' style='color:red;'>saved!</td></tr>");
+			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%' style='color:red;'>" + (db.getString("author_id").equals(id)? "<div class='option_delete'><span class='replace'>saved!</span><span class='replaced'><a href='board.jsp?post_delete="+db.getString("id")+"' title='Permenantly Delete This Post' class='delete_post'>DELETE</a></span></div>" : "saved!") +"</td></tr>");
 		else 
 			out.print("<tr><td><table class='post' width='100%' cellpadding='5'><tr><td align='right' width='60%'><img src='images/pin_green.png' class='pin'></td><td align='right' width='40%'>" + (db.getString("author_id").equals(id)? "<a class='archive'  title='Move to Archive' href='board.jsp?post="+db.getString("id")+"'>X&nbsp;&nbsp;</a>" : "&nbsp;") + "</td></tr>");
 			

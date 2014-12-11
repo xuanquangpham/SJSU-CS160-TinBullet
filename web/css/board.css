@@ -114,6 +114,15 @@ textarea {
     border-bottom:5px solid #3399FF;
 }
 
+#divNewProject {
+    background-color: #99CCFF;
+	margin-left: auto;
+    margin-right: auto;
+    top:150px;
+	width: 400px;
+    border-bottom:5px solid #3399FF;
+}
+
 #divMember {
     background-color: #99CCFF;
 	margin-left: auto;
@@ -140,3 +149,17 @@ textarea {
 	width: 400px;
     border-bottom:5px solid #3399FF;
 }
+
+div.option_delete span.replace {
+    display:inline;
+}
+div.option_delete:hover span.replace {
+    display:none;
+}
+div.option_delete span.replaced {
+    display:none;
+}
+div.option_delete:hover span.replaced {
+    display:inline;
+}
+	
