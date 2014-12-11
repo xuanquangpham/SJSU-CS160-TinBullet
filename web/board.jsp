@@ -54,7 +54,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
     <table width="100%" border="0" ><tr valign="top">
     
     <td width="30%"><table width="100%" border="0" cellpadding="15">
-    
+    <td><p style="font-size: 24px; text-align:center; font-weight:bold ">Alerts</p></td>
     <%
 	if (all)
 		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=1 ORDER BY p.date DESC";
@@ -80,7 +80,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
     </table>
     
     <td width="30%"><table width="100%" border="0" cellpadding="15">
-    
+    <td><p style="font-size: 24px; text-align:center; font-weight:bold ">Questions</p></td>
     <%
 	if (all)
 		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=2 ORDER BY p.date DESC";
@@ -107,7 +107,7 @@ boolean all = (request.getParameter("archive") == null? false : true);
     
     
     <td width="30%"><table width="100%" border="0" cellpadding="15">
-    
+    <td><p style="font-size: 24px; text-align:center; font-weight:bold ">Announcements</p></td>
     <%
 	if (all)
 		query = "SELECT p.id, p.title, p.content, p.date, p.position, p.seen, p.author_id FROM post p, user_board ub WHERE p.board_id=ub.board_id AND p.board_id="+project_id+" AND ub.user_id="+id+" AND type=3 ORDER BY p.date DESC";

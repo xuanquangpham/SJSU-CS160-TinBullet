@@ -32,6 +32,27 @@ if (request.getParameter("add_project") != null) {
 	db.update(query);
 }
 
+// Create new project in boards table and inserts it into user account
+if (request.getParameter("add_new_project") != null) {
+	String newproj = (String) request.getParameter("add_new_project");
+	query = "SELECT name FROM boards WHERE name='"+newproj+"'";
+	db.queryString(query); 
+	if(db.isNext() == true) {
+		out.print("<script>alert('Project already exists');</script>");
+	}
+	else {
+			query = "INSERT INTO boards(name) VALUES('"+newproj+"')";
+			db.update(query);
+			query = "SELECT id FROM boards WHERE name='"+newproj+"'";
+			db.queryString(query); db.isNext();
+			String board_id = (String) db.getInt("id");
+			query = "INSERT INTO user_board(user_id,board_id) VALUES('"+id+"','"+board_id+"')";
+			db.update(query);
+			session.setAttribute("project_id",board_id);
+			response.sendRedirect("board.jsp");
+		}
+}
+
 // ADD NEW MEMBER INTO PROJECT
 if (request.getParameter("add_member") != null) {
 	query = "SELECT id FROM users WHERE username='"+request.getParameter("add_member")+"'";
@@ -53,6 +74,7 @@ $(document).ready(function(){
     $("#divInfo").hide();
 	$("#divProject").hide();
 	$("#divMember").hide();
+	$("#divNewProject").hide();
  
     $('.info_show_hide').click(function(){
     	$("#divInfo").slideToggle();
@@ -60,6 +82,10 @@ $(document).ready(function(){
 	
 	$('.project_show_hide').click(function(){
     	$("#divProject").slideToggle();
+    });
+	
+	$('.newproject_show_hide').click(function(){
+    	$("#divNewProject").slideToggle();
     });
  
     $('.member_show_hide').click(function(){
@@ -92,7 +118,8 @@ $(document).ready(function(){
 		}
 		%>
         <option value="0" class="project_show_hide">&lt;Add new project&gt;</option>
-      </select>&nbsp;<input type="submit" name="btn_project_refresh" id="btn_project_refresh" value="Go" class="panel">
+      </select>&nbsp;<input type="submit" name="btn_project_refresh" id="btn_project_refresh" value="Go" class="panel"> <input type="button" name="btn_create_project" id="btn_create_project" value="Create" onClick="location.href = '#';" class="newproject_show_hide" style="font-family: Arial, Helvetica, sans-serif;
+	font-size:15px;"> 
       &nbsp;&nbsp;&nbsp;&nbsp;Members  
       <label for="member"></label>
     <select name="member" id="member" class="panel">
@@ -130,6 +157,20 @@ $(document).ready(function(){
 		%>
       </select><br><br>
         <input type="submit" name="btn_project" id="btn_project" value="Add" <% if (i==0) out.print("disabled"); %>>
+</p>
+</form>
+</div>
+
+<div id="divNewProject" style="background-color: #99CCFF;
+	margin-left: auto;
+    margin-right: auto;
+    top:150px;
+	width: 400px;
+    border-bottom:5px solid #3399FF;">
+<form method="post" action="board.jsp">
+<p align="center" class="text"><br>Create new project: (<a href='#' class='newproject_show_hide'>Close</a>)<br><br>
+      <input type="text" name="add_new_project" id="add_new_project" size="15" maxlength="15" placeholder="New Project Name" /><br><br>
+        <input type="submit" name="btn_new_project" id="btn_new_project" value="Create">
 </p>
 </form>
 </div>
