@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
-
 public class DBBean implements java.io.Serializable {
 
 	Connection con = null;
@@ -280,6 +279,30 @@ public class DBBean implements java.io.Serializable {
 		return flag;
 	}
 
+	/*
+	 * Replace all special HTML characters
+	 * @param s string input
+	 * @return fixed all escape HTML characters	 
+	 */
+	public String escapeHTML(String s) {
+		if(s == null) return "";
+		StringBuffer out = new StringBuffer("");
+		char[] chars = s.toCharArray();
+		
+		for(int i=0; i<chars.length; i++) {
+			boolean found=true;
+			switch(chars[i]) {
+				case 60:out.append("&lt;"); break; //<
+				case 62:out.append("&gt;"); break; //>
+				case 34:out.append("&quot;"); break; //"
+				case 39:out.append("&#39;"); break; //"
+				default:found=false; break;
+			}
+		if(!found) out.append(chars[i]);
+		}
+		return out.toString(); 
+	}
+	
 	/*
 	 * Return the column names of the result set
 	 * @return a list of column name

@@ -34,7 +34,7 @@ if (request.getParameter("dis") != null) {
 
 // SUBMIT A REPLY
 if (request.getParameter("replyBody") != null) {
-	String body = request.getParameter("replyBody");
+	String body = db.escapeHTML(request.getParameter("replyBody"));
 	String tag = request.getParameter("tag");
 	java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	String date = dateFormat.format(new java.util.Date()).toString();
@@ -53,13 +53,13 @@ String content = db.getString("content");
 String date = db.getDate("date");
 String time = db.getTime("date");
 String seen = db.getString("seen");
+String pos = db.getString("position");
 int userid = Integer.parseInt(db.getString("author_id"));
 query = "SELECT u.firstname, u.lastname FROM users u WHERE u.id = "+userid;
 db.queryString(query);
 db.isNext();
 String author_fn = db.getString("firstname");
 String author_ln = db.getString("lastname");
-String pos = db.getString("position");
 
 // ADD "SEEN" to the post
 if (seen.indexOf(username) == -1) {

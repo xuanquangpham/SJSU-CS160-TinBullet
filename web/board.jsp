@@ -1,5 +1,4 @@
 <%@ include file="header.jsp" %> 
-<h1><p align="center">Main Board</p></h1>
 <script type="text/javascript">
 $(document).ready(function(){
     $("#divNewPost").hide();
@@ -25,17 +24,13 @@ $(document).ready(function(){
 query = "SELECT id FROM user_board WHERE permission='0' AND board_id='"+(String)session.getAttribute("project_id")+"' AND user_id= '"+(String)session.getAttribute("id")+"'";
 db.queryString(query);
 if (db.isNext()) {
-	//db.queryString(query); db.isNext();
-	//String refresh_board_id = db.getInt("id");
-	//session.setAttribute("project_id", refresh_board_id);
-	out.println("<script>window.confirm('You do not have permission to view this project!'); window.location.href = 'header.jsp';</script>");
-	//response.sendRedirect("header.jsp");
+	out.println("<script>alert('You do not have permission to view this project!'); window.location.href = 'header.jsp';</script>");
 }
 
 // SUBMIT A NEW NOTE
 if (request.getParameter("noteTitle") != null) {
-	String title = request.getParameter("noteTitle");
-	String body = request.getParameter("noteBody");
+	String title = db.escapeHTML(request.getParameter("noteTitle")); 
+	String body = db.escapeHTML(request.getParameter("noteBody"));
 	java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	String date = dateFormat.format(new java.util.Date()).toString();
 	int position = 1;
@@ -209,8 +204,8 @@ boolean all = (request.getParameter("archive") == null? false : true);
 		}
 		%>
       </select> 
-      <button type="submit" value="Accept" name="request_accept" id="request_accept" class="optionBtn">Accept</button>
-      <button type="submit" value="Reject" name="request_reject" id="request_reject" class="optionBtn">Reject</button>
+      <button type="submit" value="Accept" name="request_accept" id="request_accept" class="optionBtn" <% if(i==0) out.print("disabled"); %> >Accept</button>
+      <button type="submit" value="Reject" name="request_reject" id="request_reject" class="optionBtn" <% if(i==0) out.print("disabled"); %> >Reject</button>
       </form>
       <br/><br>
       <form method="post" action="board.jsp">

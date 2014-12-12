@@ -28,7 +28,13 @@ if (request.getParameter("project") != null) {
 
 // ADD NEW PROJECT INTO USER ACCOUNT
 if (request.getParameter("add_project") != null) {
-	query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+id+","+request.getParameter("add_project")+",0)";
+	String add_prj = request.getParameter("add_project");
+	query = "SELECT * FROM user_board WHERE board_id ="+add_prj;
+	db.queryString(query);
+	//if there not a user in board, so first will able to control it
+	query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+id+","+request.getParameter("add_project");
+	if (db.isNext()) query += ",0)";
+	else query += ",1)";
 	db.update(query);
 }
 
@@ -46,7 +52,7 @@ if (request.getParameter("add_new_project") != null) {
 			query = "SELECT id FROM boards WHERE name='"+newproj+"'";
 			db.queryString(query); db.isNext();
 			String board_id = (String) db.getInt("id");
-			query = "INSERT INTO user_board(user_id,board_id,permission) VALUES('"+id+"','"+board_id+"','10')";
+			query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+id+","+board_id+",1)";
 			db.update(query);
 			session.setAttribute("project_id",board_id);
 			response.sendRedirect("board.jsp");
