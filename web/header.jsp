@@ -28,7 +28,7 @@ if (request.getParameter("project") != null) {
 
 // ADD NEW PROJECT INTO USER ACCOUNT
 if (request.getParameter("add_project") != null) {
-	query = "INSERT INTO user_board(user_id,board_id) VALUES("+id+","+request.getParameter("add_project")+")";
+	query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+id+","+request.getParameter("add_project")+",0)";
 	db.update(query);
 }
 
@@ -58,7 +58,7 @@ if (request.getParameter("add_member") != null) {
 	query = "SELECT id FROM users WHERE username='"+request.getParameter("add_member")+"'";
 	db.queryString(query); db.isNext();
 	String mid = db.getInt("id");
-	query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+mid+","+project_id+",0)";
+	query = "INSERT INTO user_board(user_id,board_id,permission) VALUES("+mid+","+project_id+",1)";
 	db.update(query);
 }
 
@@ -119,7 +119,10 @@ $(document).ready(function(){
 		%>
         <option value="0" class="project_show_hide">&lt;Add new project&gt;</option>
       </select>&nbsp;<input type="submit" name="btn_project_refresh" id="btn_project_refresh" value="Go" class="panel"> <input type="button" name="btn_create_project" id="btn_create_project" value="Create" onClick="location.href = '#';" class="newproject_show_hide" style="font-family: Arial, Helvetica, sans-serif;
-	font-size:15px;"> 
+	font-size:15px;"> <form method="post" action="board.jsp">
+      <button type="submit" value="Unsubscribe" name="unsub" id="unsub" style="font-family: Arial, Helvetica, sans-serif;
+	font-size:15px;">Unsubscribe</button>
+      </form>
       &nbsp;&nbsp;&nbsp;&nbsp;Members  
       <label for="member"></label>
     <select name="member" id="member" class="panel">

@@ -21,6 +21,17 @@ $(document).ready(function(){
 </div>
 
 <%
+//Check permissions of board
+query = "SELECT id FROM user_board WHERE permission='0' AND board_id='"+(String)session.getAttribute("project_id")+"' AND user_id= '"+(String)session.getAttribute("id")+"'";
+db.queryString(query);
+if (db.isNext()) {
+	//db.queryString(query); db.isNext();
+	//String refresh_board_id = db.getInt("id");
+	//session.setAttribute("project_id", refresh_board_id);
+	out.println("<script>window.confirm('You do not have permission to view this project!'); window.location.href = 'header.jsp';</script>");
+	//response.sendRedirect("header.jsp");
+}
+
 // SUBMIT A NEW NOTE
 if (request.getParameter("noteTitle") != null) {
 	String title = request.getParameter("noteTitle");
@@ -50,6 +61,36 @@ if (delete_post != null) {
 	query = "DELETE FROM post WHERE id="+delete_post;
 	db.update(query);
 	response.sendRedirect("board.jsp?archive=1");
+}
+
+//Reject request to join board
+if (request.getParameter("request_reject") != null) {
+	query = "SELECT id FROM users WHERE username='"+request.getParameter("member_name")+"'";
+	db.queryString(query); db.isNext();
+	String mid = db.getInt("id");
+	query = "DELETE FROM user_board WHERE user_id='"+mid+"' AND board_id ='"+(String)session.getAttribute("project_id")+"'";
+	db.update(query);
+	response.sendRedirect("board.jsp");
+}
+//Accept request to join board
+if(request.getParameter("request_accept") != null) {
+	query = "SELECT id FROM users WHERE username='"+request.getParameter("member_name")+"'";
+	db.queryString(query); db.isNext();
+	String mid = db.getInt("id");
+	query = "UPDATE user_board SET permission=1 WHERE user_id='"+mid+"' AND board_id ='"+(String)session.getAttribute("project_id")+"'";
+	db.update(query);
+	response.sendRedirect("board.jsp");
+}
+
+//Remove yourself from board
+if(request.getParameter("unsub") != null) {
+	query = "DELETE FROM user_board WHERE user_id='"+(String)session.getAttribute("id")+"' AND board_id='"+(String)session.getAttribute("project_id")+"'";
+	db.update(query);
+	query = "Select board_id FROM user_board WHERE user_id = '"+(String)session.getAttribute("id")+"'";
+	db.queryString(query); db.isNext();
+	String refresh_board_id = db.getInt("id");
+	session.setAttribute("project_id", refresh_board_id);
+	response.sendRedirect("header.jsp");
 }
 
 // display mode: active note or archive including
@@ -152,6 +193,29 @@ boolean all = (request.getParameter("archive") == null? false : true);
 		<input type="button" name="showarchive" id="showarchive" value="Show Archive" onClick="location.href = 'board.jsp?archive=1';" class="btnSize">
         <br/><br>
 		<input type="button" name="hidearhive" id="hidearchive" value="Hide Archive"  class="btnSize" onClick="location.href = 'board.jsp';">
+        <br/><br>
+        <form method="post" action="board.jsp"> 
+        <select name="member_name" id="membership_requests" class="btnSize">
+        <%
+		query = "SELECT username, firstname, lastname FROM user_board ub, users u WHERE ub.permission='0' AND ub.board_id='"+(String)session.getAttribute("project_id")+"' AND ub.user_id=u.id";
+		db.queryString(query);
+		i = 0;
+		while (db.isNext()) {
+			i++;
+			out.println("<option value='"+ db.getString("username") +"'>" + db.getString("firstname") + " " + db.getString("lastname") +"</option>");
+		}
+		if (i == 0) {
+			out.println("<option value='0'>No requests</option>");
+		}
+		%>
+      </select> 
+      <button type="submit" value="Accept" name="request_accept" id="request_accept" class="optionBtn">Accept</button>
+      <button type="submit" value="Reject" name="request_reject" id="request_reject" class="optionBtn">Reject</button>
+      </form>
+      <br/><br>
+      <form method="post" action="board.jsp">
+      <button type="submit" value="Unsubscribe" name="unsub" id="unsub" class="btnSize">Unsubscribe</button>
+      </form>
 	</td>
   </tr>
 </table>
